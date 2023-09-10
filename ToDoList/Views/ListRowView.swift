@@ -9,23 +9,34 @@ import SwiftUI
 
 struct ListRowView: View {
     // MARK: - DATA:
-    let title: String
+    let item: ItemModel
     
     var body: some View {
     // MARK: - someVIEW:
         
         HStack {
-            Image(systemName: "checkmark.circle")
-            Text(title)
+            Image(systemName: item.isCompleted ? "checkmark.circle" : "circle.dashed")
+                .foregroundColor(item.isCompleted ? .green : .red)
+            Text(item.title)
             Spacer()
         }
+        .font(.title2)
+        .padding(10)
     }
     //methods:
     
 }
 
 struct ListRowView_Previews: PreviewProvider {
+    
+    static var item1 = ItemModel(title: "testCasePreview", isCompleted: false)
+    static var item2 = ItemModel(title: "secondTestCase", isCompleted: true)
+    
     static var previews: some View {
-        ListRowView(title: "This is the first title")
+        Group {
+            ListRowView(item: item1)
+            ListRowView(item: item2)
+        }
+        .previewLayout(.sizeThatFits)
     }
 }

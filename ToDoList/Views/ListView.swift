@@ -11,17 +11,17 @@ import SwiftUI
 
 struct ListView: View {
 // MARK: - DATA:
-    @State var items: [String] = [
-    "This is the first title !",
-    "This is the 2nd title, perhaps",
-    "another default title number three"
-    ]
+    @State var items: [ItemModel] = [
+            ItemModel(title: "This is the First Order", isCompleted: false),
+            ItemModel(title: "This is the Order 66", isCompleted: false),
+            ItemModel(title: "The Final Order", isCompleted: true)
+            ]
     
     var body: some View {
 // MARK: - someVIEW:
         List {
-            ForEach(items, id: \.self) { item in
-                ListRowView(title: item)
+            ForEach(items) { item in   // its not 'item for in ..' but 'its item in Closure: ..' //
+                ListRowView(item: item)
             }
         }
         .listStyle(PlainListStyle())
