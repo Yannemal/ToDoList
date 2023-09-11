@@ -20,10 +20,12 @@ struct ListView: View {
     var body: some View {
 // MARK: - someVIEW:
         List {
-            ForEach(items) { item in   // its not 'item for in ..' but 'its item in Closure: ..' //
+            ForEach(items) { item in   // its not 'item for in ..' but 'its item in <Closure:> ..' //
                 ListRowView(item: item)
-            }
-        }
+            } // end For Each
+            .onDelete(perform: deleteItem)
+            .onMove(perform: moveItem)
+        } // end List
         .listStyle(PlainListStyle())
         .navigationTitle("ToDo List 📝")
         .toolbar {
@@ -32,12 +34,18 @@ struct ListView: View {
             }
             ToolbarItem(placement: .navigationBarTrailing) {
                 NavigationLink("add", destination: AddView())
+                
             }
         }
-        
-       
     } // end someView
-// MARK: - METHODS
+    // MARK: - METHODS someView
+    func deleteItem(indexSet: IndexSet) {
+        items.remove(atOffsets: indexSet)
+    }
+    
+    func moveItem(from: IndexSet, to: Int ) {
+        items.move(fromOffsets: from, toOffset: to)
+    }
     
 } // end struct
 
@@ -47,7 +55,6 @@ struct ListView_Previews: PreviewProvider {
             ListView()
         }
 
-      
     }
 }
 
