@@ -3,24 +3,25 @@
 //  ToDoList
 //  tutor Nick - SwiftFul Thinking
 //  Created by yannemal on 09/09/2023.
-//  VIEWLIST
+//  VIEWLIST new main page instead of ContentView
 
 import SwiftUI
 
-// other Structs
+// other Structs:
 
 struct ListView: View {
 // MARK: - DATA:
+    //default data to have on screen
     @State var items: [ItemModel] = [
             ItemModel(title: "This is the First Order", isCompleted: false),
-            ItemModel(title: "This is the Order 66", isCompleted: false),
+            ItemModel(title: "This is the Order 66", isCompleted: true),
             ItemModel(title: "The Final Order", isCompleted: true)
             ]
     
     var body: some View {
 // MARK: - someVIEW:
         List {
-            ForEach(items) { item in   // its not 'item for in ..' but 'its item in <Closure:> ..' //
+            ForEach(items) { item in   // its not 'item for .. in ..' but 'for each item that goes in' <Closure:> ..' //build a
                 ListRowView(item: item)
             } // end For Each
             .onDelete(perform: deleteItem)
@@ -39,6 +40,7 @@ struct ListView: View {
         }
     } // end someView
     // MARK: - METHODS someView
+    // https://www.youtube.com/watch?v=nwpmWu1SP1k&t=472s
     func deleteItem(indexSet: IndexSet) {
         items.remove(atOffsets: indexSet)
     }
