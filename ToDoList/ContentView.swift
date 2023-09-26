@@ -3,7 +3,7 @@
 //  ToDoList
 //  tutor Nick - SwiftFul Thinking
 //  Created by yannemal on 09/09/2023.
-// NOT NEEDED > see ListView 
+// NOT NEEDED > see ListView // just keeping it here so you can see
 
 import SwiftUI
 // other Structs

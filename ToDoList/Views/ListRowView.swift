@@ -15,6 +15,7 @@ struct ListRowView: View {
     // MARK: - someVIEW:
         
         HStack {
+            // build UI
             Image(systemName: item.isCompleted ? "checkmark.circle" : "circle.dashed")
                 .foregroundColor(item.isCompleted ? .green : .red)
             Text(item.title)

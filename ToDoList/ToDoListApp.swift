@@ -11,7 +11,7 @@ import SwiftUI
 struct ToDoListApp: App {
     // MARK: - data for entire app:
     @StateObject var listViewModel: ListViewModel = ListViewModel()
-    
+    // to init : NameClass()
     
     // MARK: - someView for entire app:
     var body: some Scene {
@@ -22,6 +22,8 @@ struct ToDoListApp: App {
                 ListView()
             }
            // now NavStack .modifiers will be available without having to add NavStack in each file
+            .environmentObject(listViewModel)
+            // now all our Views have access to our @StateObject instance of ListViewModel class
         }
     }
 }

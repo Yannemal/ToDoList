@@ -12,24 +12,34 @@ import SwiftUI
 struct ListView: View {
 // MARK: - DATA:
     //default data to have on screen
-    @State var items: [ItemModel] = [
-            ItemModel(title: "This is the First Order", isCompleted: false),
-            ItemModel(title: "This is the Order 66", isCompleted: true),
-            ItemModel(title: "The Final Order", isCompleted: true)
-            ]
+    @EnvironmentObject var listViewModel: ListViewModel
+ 
     
     var body: some View {
 // MARK: - someVIEW:
-        List {
-            ForEach(items) { item in   // its not 'item for .. in ..' but 'for each item that goes in' <Closure:> ..' //build a
-                ListRowView(item: item)
-            } // end For Each
-            .onDelete(perform: deleteItem)
-            .onMove(perform: moveItem)
-        } // end List
+        
+        ZStack {
+            if listViewModel.items.isEmpty {
+                Text("No items yet")
+            } else {
+                List {
+                    ForEach(listViewModel.items) { item in
+                        ListRowView(item: item)
+                            .onTapGesture {
+                                withAnimation(.linear) {
+                                    listViewModel.updateItem(item: item)
+                                }
+                            }
+                    }
+                    .onDelete(perform: listViewModel.deleteItem)
+                    .onMove(perform: listViewModel.moveItem)
+                } // end List
+
+            }
+        } // end ZStack        
         .listStyle(PlainListStyle())
         .navigationTitle("ToDo List 📝")
-        .toolbar {
+        .toolbar { // TopLeft and TopRight Buttons:
             ToolbarItem(id: "Edit", placement: .navigationBarLeading ) {
                 EditButton()
             }
@@ -40,14 +50,7 @@ struct ListView: View {
         }
     } // end someView
     // MARK: - METHODS someView
-    // https://www.youtube.com/watch?v=nwpmWu1SP1k&t=472s
-    func deleteItem(indexSet: IndexSet) {
-        items.remove(atOffsets: indexSet)
-    }
-    
-    func moveItem(from: IndexSet, to: Int ) {
-        items.move(fromOffsets: from, toOffset: to)
-    }
+ 
     
 } // end struct
 
@@ -56,6 +59,7 @@ struct ListView_Previews: PreviewProvider {
         NavigationStack {
             ListView()
         }
+        .environmentObject(ListViewModel())
 
     }
 }
