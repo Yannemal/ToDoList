@@ -20,7 +20,11 @@ struct ListView: View {
         
         ZStack {
             if listViewModel.items.isEmpty {
-                Text("No items yet")
+                NoItemsView()
+                   
+                    .transition(AnyTransition.opacity
+                        .animation(.easeIn(duration: 1.0))
+                    )
             } else {
                 List {
                     ForEach(listViewModel.items) { item in
@@ -34,10 +38,10 @@ struct ListView: View {
                     .onDelete(perform: listViewModel.deleteItem)
                     .onMove(perform: listViewModel.moveItem)
                 } // end List
+                .listStyle(PlainListStyle())
 
             }
-        } // end ZStack        
-        .listStyle(PlainListStyle())
+        } // end ZStack
         .navigationTitle("ToDo List 📝")
         .toolbar { // TopLeft and TopRight Buttons:
             ToolbarItem(id: "Edit", placement: .navigationBarLeading ) {

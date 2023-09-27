@@ -3,7 +3,7 @@
 //  ToDoList
 //  tutor Nick - SwiftFul Thinking
 //  Created by yannemal on 09/09/2023.
-//
+//  finished around 27 sept
 
 import Foundation
 
@@ -29,7 +29,7 @@ class ListViewModel: ObservableObject  {
     let itemsKey: String = "items_list"
     
     init() {
-        
+        // when instanced do this on start up
         getItems()
         
     }
@@ -40,7 +40,7 @@ class ListViewModel: ObservableObject  {
 
         guard let data = UserDefaults.standard.data(forKey: itemsKey),
               let savedItems = try?  JSONDecoder().decode([ItemModel].self, from: data)
-                else { return }
+        else { return }
         
         self.items = savedItems
     }
@@ -63,6 +63,7 @@ class ListViewModel: ObservableObject  {
         
         if let index = items.firstIndex(where: { $0.id == item.id }) {
            // search for item in the array to then run the updateCompletion method while keeping the original's UUID
+            // find the first index position in the array called items where the placeholder $0 to be filtered is the same as this item's id
             items[index] = item.updateCompletion()
         }
     }

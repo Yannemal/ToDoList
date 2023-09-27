@@ -57,6 +57,7 @@ struct AddView: View {
         // addItem
         if textIsAppropriate() {
             listViewModel.addItem(title: textFieldText)
+            // read over this: ⬆️ addItem method from the class
             presentationMode.wrappedValue.dismiss()
             // ⬆️ all this does is go back one view in NavStack
         }
