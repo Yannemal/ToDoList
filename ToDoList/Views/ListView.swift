@@ -51,6 +51,7 @@ struct ListView: View {
                 NavigationLink("add", destination: AddView())
                 
             }
+            
         }
     } // end someView
     // MARK: - METHODS someView
